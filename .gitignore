@@ -1,6 +1,8 @@
-composer.phar
-/vendor/
+conf/ballerina/workspace/restfull-sample-api/target
+conf/ballerina/workspace/restfull-sample-api/tests
+conf/ballerina/workspace/restfull-sample-api/.devcontainer.json
+conf/ballerina/workspace/restfull-sample-api/Dependencies.toml
 
-# Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
-# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
-# composer.lock
+conf/integrated-studio/workspace/.metadata
+conf/integrated-studio/workspace/.tmp
+conf/integrated-studio/workspace/.project

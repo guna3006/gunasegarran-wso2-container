@@ -1,0 +1,24 @@
+[server]
+hostname = "localhost"
+hot_deployment = false
+
+[user_store]
+type = "read_only_ldap"
+
+[keystore.tls]
+file_name="repository/resources/security/wso2carbon.jks"
+type="JKS"
+password="wso2carbon"
+alias="wso2carbon"
+key_password="wso2carbon"
+
+[[service_catalog]]
+apim_host = "https://wso2apim-server:9443"
+enable = true
+username = "admin"
+password = "admin"
+
+[dashboard_config]
+dashboard_url = "https://wso2mi-dashboard:9743/dashboard/api/"
+group_id = "group_id"
+node_id = "node_id"

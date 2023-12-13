@@ -1,0 +1,163 @@
+version: '3.8'
+name: middleware-harmony-container
+services:
+
+  mysql-server:
+    container_name: mysql-server
+    hostname: mysql
+    image: mysql:latest
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./conf/mysql/cnf/mysql.cnf
+        target: /etc/mysql/my.cnf
+        read_only: true
+      - type: bind
+        source: ./conf/mysql/scripts
+        target: /docker-entrypoint-initdb.d
+        read_only: true
+      - type: volume
+        source: mysql-data
+        target: /var/lib/mysql
+    ports:
+      - 0.0.0.0:4406:3306
+    networks:
+      harmony-network:
+        ipv4_address: 30.5.0.5
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ulimits:
+      nofile:
+        soft: 20000
+        hard: 40000
+    command: [--ssl=0]
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-uroot", "-proot"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+
+  wso2apim-server:
+    container_name: wso2-apim-server
+    hostname: apim
+    image: docker.wso2.com/wso2am:4.2.0
+    depends_on:
+      mysql-server:
+        condition: service_healthy
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./conf/api-manager/components/dropins/mysql-connector-java-8.0.17.jar
+        target: /home/wso2carbon/wso2am-4.2.0/repository/components/dropins/mysql-connector-java-8.0.17.jar
+        read_only: true
+      - type: bind
+        source: ./conf/api-manager/conf/deployment.toml
+        target: /home/wso2carbon/wso2am-4.2.0/conf/deployment.toml
+        read_only: true
+    ports:
+      - 0.0.0.0:9443:9443 #https-carbon
+      - 0.0.0.0:9763:9763 #http-carbon
+      - 0.0.0.0:8280:8280 #http-nio
+      - 0.0.0.0:8243:8243 #https-nio
+      - 0.0.0.0:8080:8080 #https-analytics
+      - 0.0.0.0:10389:10389 #ldad
+    networks:
+      harmony-network:
+        ipv4_address: 30.5.0.6
+    healthcheck:
+      test: ["CMD", "nc", "-z","localhost", "9443"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 180s
+        
+  wso2mi-server:
+    container_name: wso2-mi-server
+    hostname: mi
+    image: docker.wso2.com/wso2mi:4.2.0
+    depends_on:
+      mysql-server:
+        condition: service_healthy
+      wso2apim-server:
+        condition: service_healthy
+    volumes:
+      - type: bind
+        source: ./conf/mi-cli/repository/deployment/server/carbonapps
+        target: /home/wso2carbon/wso2mi-4.2.0/repository/deployment/server/carbonapps
+        read_only: true
+      - type: bind
+        source: ./conf/mi-cli/conf/deployment.toml
+        target: /home/wso2carbon/wso2mi-4.2.0/conf/deployment.toml
+        read_only: true
+    ports:
+      - 0.0.0.0:8290:8290 #http
+      - 0.0.0.0:8253:8253 #https
+      - 0.0.0.0:9164:9164 #https-mi-dashboard
+      - 0.0.0.0:9201:9201 #http-mi-dashboard
+    networks:
+      harmony-network:
+        ipv4_address: 30.5.0.7
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "8253"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 180s
+
+  wso2mi-dashboard:
+    container_name: wso2-mi-dashboard
+    hostname: midashboard
+    image: docker.wso2.com/wso2mi-dashboard:4.2.0
+    depends_on:
+      wso2mi-server:
+        condition: service_healthy
+    volumes:
+      - type: bind
+        source: ./conf/mi-dashboard/conf/deployment.toml
+        target: /home/wso2carbon/wso2mi-dashboard-4.2.0/conf/deployment.toml
+        read_only: true
+    ports:
+      - 0.0.0.0:9743:9743
+    networks:
+      harmony-network:
+        ipv4_address: 30.5.0.8
+    environment:
+      JAVA_OPTS: "-DenableManagementApi=true"
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "9743"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 180s
+
+  ballerina:
+    container_name: ballerina-runtime
+    hostname: ballerina
+    image: ballerina/ballerina:latest
+    restart: unless-stopped
+    working_dir: /ballerina-workspace
+    volumes:
+      - ./conf/ballerina/workspace/restfull-sample-api/:/ballerina-workspace
+    ports:
+      - 0.0.0.0:7777:7777
+      - 0.0.0.0:7778:7778
+    networks:
+      harmony-network:
+        ipv4_address: 30.5.0.9
+    command: bal run
+    depends_on:
+      mysql-server:
+        condition: service_healthy
+
+volumes:
+  mysql-data:
+
+networks:
+  harmony-network:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 30.5.0.0/16
+         gateway: 30.5.0.1
+

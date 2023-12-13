@@ -1,0 +1,1647 @@
+openapi: 3.0.0
+info:
+  title: restfull-sample-api
+  version: 1.0.0
+servers:
+  - url: http://localhost:7777
+tags:
+  - name: database
+  - name: database > employee
+  - name: database > others
+  - name: status
+  - name: geolocation
+paths:
+  /database/employee/delete:
+    delete:
+      tags:
+        - database > employee
+      summary: delete
+      parameters:
+        - name: employee_id
+          in: query
+          schema:
+            type: integer
+          example: '3006'
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Sun, 10 Dec 2023 11:32:23 +0800
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '89'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: Success
+                message: Record deleted
+                employee_id: 3006
+  /database/employee/create:
+    post:
+      tags:
+        - database > employee
+      summary: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                employee_id: 21122022
+                first_name: Gunasegarran
+                last_name: Magadevan
+                email: gunasegarran@tm.com.my
+                phone_number: '0166813006'
+                hire_date: '2023-08-01'
+                job_id: 1
+                salary: 500
+                manager_id: 100
+                department_id: 9
+      responses:
+        '201':
+          description: Created
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Sun, 10 Dec 2023 01:03:58 +0800
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '188'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                employee_id: 21122022
+                first_name: Gunasegarran
+                last_name: Magadevan
+                email: gunasegarran@tm.com.my
+                phone_number: '0166813006'
+                hire_date: '2023-08-01'
+                job_id: 1
+                salary: 500
+                manager_id: 100
+                department_id: 9
+  /database/employee/update/salary:
+    put:
+      tags:
+        - database > employee
+      summary: update
+      requestBody:
+        content: {}
+      parameters:
+        - name: employee_id
+          in: query
+          schema:
+            type: integer
+          example: '206'
+        - name: salary
+          in: query
+          schema:
+            type: integer
+          example: '8400'
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Sun, 10 Dec 2023 11:40:12 +0800
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '192'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                employee_id: 206
+                first_name: William
+                last_name: Gietz
+                email: william.gietz@sqltutorial.org
+                phone_number: 515.123.8181
+                hire_date: '1994-06-07'
+                job_id: 1
+                salary: 8400
+                manager_id: 205
+                department_id: 11
+  /database/employee/all:
+    get:
+      tags:
+        - database > employee
+      summary: all
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Mon, 11 Dec 2023 13:00:51 +0800
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            transfer-encoding:
+              schema:
+                type: string
+                example: chunked
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - employee_id: 100
+                  first_name: Steven
+                  last_name: King
+                  email: steven.king@sqltutorial.org
+                  phone_number: 515.123.4567
+                  hire_date: '1987-06-17'
+                  job_id: 4
+                  salary: 24000
+                  manager_id: 100
+                  department_id: 9
+                - employee_id: 101
+                  first_name: Neena
+                  last_name: Kochhar
+                  email: neena.kochhar@sqltutorial.org
+                  phone_number: 515.123.4568
+                  hire_date: '1989-09-21'
+                  job_id: 5
+                  salary: 17000
+                  manager_id: 100
+                  department_id: 9
+                - employee_id: 102
+                  first_name: Lex
+                  last_name: De Haan
+                  email: lex.de haan@sqltutorial.org
+                  phone_number: 515.123.4569
+                  hire_date: '1993-01-13'
+                  job_id: 5
+                  salary: 17000
+                  manager_id: 100
+                  department_id: 9
+                - employee_id: 103
+                  first_name: Alexander
+                  last_name: Hunold
+                  email: alexander.hunold@sqltutorial.org
+                  phone_number: 590.423.4567
+                  hire_date: '1990-01-03'
+                  job_id: 9
+                  salary: 9000
+                  manager_id: 102
+                  department_id: 6
+                - employee_id: 104
+                  first_name: Bruce
+                  last_name: Ernst
+                  email: bruce.ernst@sqltutorial.org
+                  phone_number: 590.423.4568
+                  hire_date: '1991-05-21'
+                  job_id: 9
+                  salary: 6000
+                  manager_id: 103
+                  department_id: 6
+                - employee_id: 105
+                  first_name: David
+                  last_name: Austin
+                  email: david.austin@sqltutorial.org
+                  phone_number: 590.423.4569
+                  hire_date: '1997-06-25'
+                  job_id: 9
+                  salary: 4800
+                  manager_id: 103
+                  department_id: 6
+                - employee_id: 106
+                  first_name: Valli
+                  last_name: Pataballa
+                  email: valli.pataballa@sqltutorial.org
+                  phone_number: 590.423.4560
+                  hire_date: '1998-02-05'
+                  job_id: 9
+                  salary: 4800
+                  manager_id: 103
+                  department_id: 6
+                - employee_id: 107
+                  first_name: Diana
+                  last_name: Lorentz
+                  email: diana.lorentz@sqltutorial.org
+                  phone_number: 590.423.5567
+                  hire_date: '1999-02-07'
+                  job_id: 9
+                  salary: 4200
+                  manager_id: 103
+                  department_id: 6
+                - employee_id: 108
+                  first_name: Nancy
+                  last_name: Greenberg
+                  email: nancy.greenberg@sqltutorial.org
+                  phone_number: 515.124.4569
+                  hire_date: '1994-08-17'
+                  job_id: 7
+                  salary: 12000
+                  manager_id: 101
+                  department_id: 10
+                - employee_id: 109
+                  first_name: Daniel
+                  last_name: Faviet
+                  email: daniel.faviet@sqltutorial.org
+                  phone_number: 515.124.4169
+                  hire_date: '1994-08-16'
+                  job_id: 6
+                  salary: 9000
+                  manager_id: 108
+                  department_id: 10
+                - employee_id: 110
+                  first_name: John
+                  last_name: Chen
+                  email: john.chen@sqltutorial.org
+                  phone_number: 515.124.4269
+                  hire_date: '1997-09-28'
+                  job_id: 6
+                  salary: 8200
+                  manager_id: 108
+                  department_id: 10
+                - employee_id: 111
+                  first_name: Ismael
+                  last_name: Sciarra
+                  email: ismael.sciarra@sqltutorial.org
+                  phone_number: 515.124.4369
+                  hire_date: '1997-09-30'
+                  job_id: 6
+                  salary: 7700
+                  manager_id: 108
+                  department_id: 10
+                - employee_id: 112
+                  first_name: Jose Manuel
+                  last_name: Urman
+                  email: jose manuel.urman@sqltutorial.org
+                  phone_number: 515.124.4469
+                  hire_date: '1998-03-07'
+                  job_id: 6
+                  salary: 7800
+                  manager_id: 108
+                  department_id: 10
+                - employee_id: 113
+                  first_name: Luis
+                  last_name: Popp
+                  email: luis.popp@sqltutorial.org
+                  phone_number: 515.124.4567
+                  hire_date: '1999-12-07'
+                  job_id: 6
+                  salary: 6900
+                  manager_id: 108
+                  department_id: 10
+                - employee_id: 114
+                  first_name: Den
+                  last_name: Raphaely
+                  email: den.raphaely@sqltutorial.org
+                  phone_number: 515.127.4561
+                  hire_date: '1994-12-07'
+                  job_id: 14
+                  salary: 11000
+                  manager_id: 100
+                  department_id: 3
+                - employee_id: 115
+                  first_name: Alexander
+                  last_name: Khoo
+                  email: alexander.khoo@sqltutorial.org
+                  phone_number: 515.127.4562
+                  hire_date: '1995-05-18'
+                  job_id: 13
+                  salary: 3100
+                  manager_id: 114
+                  department_id: 3
+                - employee_id: 116
+                  first_name: Shelli
+                  last_name: Baida
+                  email: shelli.baida@sqltutorial.org
+                  phone_number: 515.127.4563
+                  hire_date: '1997-12-24'
+                  job_id: 13
+                  salary: 2900
+                  manager_id: 114
+                  department_id: 3
+                - employee_id: 117
+                  first_name: Sigal
+                  last_name: Tobias
+                  email: sigal.tobias@sqltutorial.org
+                  phone_number: 515.127.4564
+                  hire_date: '1997-07-24'
+                  job_id: 13
+                  salary: 2800
+                  manager_id: 114
+                  department_id: 3
+                - employee_id: 118
+                  first_name: Guy
+                  last_name: Himuro
+                  email: guy.himuro@sqltutorial.org
+                  phone_number: 515.127.4565
+                  hire_date: '1998-11-15'
+                  job_id: 13
+                  salary: 2600
+                  manager_id: 114
+                  department_id: 3
+                - employee_id: 119
+                  first_name: Karen
+                  last_name: Colmenares
+                  email: karen.colmenares@sqltutorial.org
+                  phone_number: 515.127.4566
+                  hire_date: '1999-08-10'
+                  job_id: 13
+                  salary: 2500
+                  manager_id: 114
+                  department_id: 3
+                - employee_id: 120
+                  first_name: Matthew
+                  last_name: Weiss
+                  email: matthew.weiss@sqltutorial.org
+                  phone_number: 650.123.1234
+                  hire_date: '1996-07-18'
+                  job_id: 19
+                  salary: 8000
+                  manager_id: 100
+                  department_id: 5
+                - employee_id: 121
+                  first_name: Adam
+                  last_name: Fripp
+                  email: adam.fripp@sqltutorial.org
+                  phone_number: 650.123.2234
+                  hire_date: '1997-04-10'
+                  job_id: 19
+                  salary: 8200
+                  manager_id: 100
+                  department_id: 5
+                - employee_id: 122
+                  first_name: Payam
+                  last_name: Kaufling
+                  email: payam.kaufling@sqltutorial.org
+                  phone_number: 650.123.3234
+                  hire_date: '1995-05-01'
+                  job_id: 19
+                  salary: 7900
+                  manager_id: 100
+                  department_id: 5
+                - employee_id: 123
+                  first_name: Shanta
+                  last_name: Vollman
+                  email: shanta.vollman@sqltutorial.org
+                  phone_number: 650.123.4234
+                  hire_date: '1997-10-10'
+                  job_id: 19
+                  salary: 6500
+                  manager_id: 100
+                  department_id: 5
+                - employee_id: 126
+                  first_name: Irene
+                  last_name: Mikkilineni
+                  email: irene.mikkilineni@sqltutorial.org
+                  phone_number: 650.124.1224
+                  hire_date: '1998-09-28'
+                  job_id: 18
+                  salary: 2700
+                  manager_id: 120
+                  department_id: 5
+                - employee_id: 145
+                  first_name: John
+                  last_name: Russell
+                  email: john.russell@sqltutorial.org
+                  phone_number: ''
+                  hire_date: '1996-10-01'
+                  job_id: 15
+                  salary: 14000
+                  manager_id: 100
+                  department_id: 8
+                - employee_id: 146
+                  first_name: Karen
+                  last_name: Partners
+                  email: karen.partners@sqltutorial.org
+                  phone_number: ''
+                  hire_date: '1997-01-05'
+                  job_id: 15
+                  salary: 13500
+                  manager_id: 100
+                  department_id: 8
+                - employee_id: 176
+                  first_name: Jonathon
+                  last_name: Taylor
+                  email: jonathon.taylor@sqltutorial.org
+                  phone_number: ''
+                  hire_date: '1998-03-24'
+                  job_id: 16
+                  salary: 8600
+                  manager_id: 100
+                  department_id: 8
+                - employee_id: 177
+                  first_name: Jack
+                  last_name: Livingston
+                  email: jack.livingston@sqltutorial.org
+                  phone_number: ''
+                  hire_date: '1998-04-23'
+                  job_id: 16
+                  salary: 8400
+                  manager_id: 100
+                  department_id: 8
+                - employee_id: 178
+                  first_name: Kimberely
+                  last_name: Grant
+                  email: kimberely.grant@sqltutorial.org
+                  phone_number: ''
+                  hire_date: '1999-05-24'
+                  job_id: 16
+                  salary: 7000
+                  manager_id: 100
+                  department_id: 8
+                - employee_id: 179
+                  first_name: Charles
+                  last_name: Johnson
+                  email: charles.johnson@sqltutorial.org
+                  phone_number: ''
+                  hire_date: '2000-01-04'
+                  job_id: 16
+                  salary: 6200
+                  manager_id: 100
+                  department_id: 8
+                - employee_id: 192
+                  first_name: Sarah
+                  last_name: Bell
+                  email: sarah.bell@sqltutorial.org
+                  phone_number: 650.501.1876
+                  hire_date: '1996-02-04'
+                  job_id: 17
+                  salary: 4000
+                  manager_id: 123
+                  department_id: 5
+                - employee_id: 193
+                  first_name: Britney
+                  last_name: Everett
+                  email: britney.everett@sqltutorial.org
+                  phone_number: 650.501.2876
+                  hire_date: '1997-03-03'
+                  job_id: 17
+                  salary: 3900
+                  manager_id: 123
+                  department_id: 5
+                - employee_id: 200
+                  first_name: Jennifer
+                  last_name: Whalen
+                  email: jennifer.whalen@sqltutorial.org
+                  phone_number: 515.123.4444
+                  hire_date: '1987-09-17'
+                  job_id: 3
+                  salary: 4400
+                  manager_id: 101
+                  department_id: 1
+                - employee_id: 201
+                  first_name: Michael
+                  last_name: Hartstein
+                  email: michael.hartstein@sqltutorial.org
+                  phone_number: 515.123.5555
+                  hire_date: '1996-02-17'
+                  job_id: 10
+                  salary: 13000
+                  manager_id: 100
+                  department_id: 2
+                - employee_id: 202
+                  first_name: Pat
+                  last_name: Fay
+                  email: pat.fay@sqltutorial.org
+                  phone_number: 603.123.6666
+                  hire_date: '1997-08-17'
+                  job_id: 11
+                  salary: 6000
+                  manager_id: 201
+                  department_id: 2
+                - employee_id: 203
+                  first_name: Susan
+                  last_name: Mavris
+                  email: susan.mavris@sqltutorial.org
+                  phone_number: 515.123.7777
+                  hire_date: '1994-06-07'
+                  job_id: 8
+                  salary: 6500
+                  manager_id: 101
+                  department_id: 4
+                - employee_id: 204
+                  first_name: Hermann
+                  last_name: Baer
+                  email: hermann.baer@sqltutorial.org
+                  phone_number: 515.123.8888
+                  hire_date: '1994-06-07'
+                  job_id: 12
+                  salary: 10000
+                  manager_id: 101
+                  department_id: 7
+                - employee_id: 205
+                  first_name: Shelley
+                  last_name: Higgins
+                  email: shelley.higgins@sqltutorial.org
+                  phone_number: 515.123.8080
+                  hire_date: '1994-06-07'
+                  job_id: 2
+                  salary: 12000
+                  manager_id: 101
+                  department_id: 11
+                - employee_id: 206
+                  first_name: William
+                  last_name: Gietz
+                  email: william.gietz@sqltutorial.org
+                  phone_number: 515.123.8181
+                  hire_date: '1994-06-07'
+                  job_id: 1
+                  salary: 8300
+                  manager_id: 205
+                  department_id: 11
+  /database/employee:
+    get:
+      tags:
+        - database > employee
+      summary: id
+      parameters:
+        - name: employee_id
+          in: query
+          schema:
+            type: integer
+          example: '202'
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Sun, 10 Dec 2023 16:42:11 +0800
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '184'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                employee_id: 202
+                first_name: Pat
+                last_name: Fay
+                email: pat.fay@sqltutorial.org
+                phone_number: 603.123.6666
+                hire_date: '1997-08-17'
+                job_id: 11
+                salary: 6000
+                manager_id: 201
+                department_id: 2
+  /database/countries/all:
+    get:
+      tags:
+        - database > others
+      summary: countries
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Mon, 11 Dec 2023 13:37:52 +0800
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '366'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - country_name: Argentina
+                  region_id: 2
+                  country_id: AR
+                - country_name: Australia
+                  region_id: 3
+                  country_id: AU
+                - country_name: Belgium
+                  region_id: 1
+                  country_id: BE
+                - country_name: Brazil
+                  region_id: 2
+                  country_id: BR
+                - country_name: Canada
+                  region_id: 2
+                  country_id: CA
+                - country_name: Switzerland
+                  region_id: 1
+                  country_id: CH
+                - country_name: China
+                  region_id: 3
+                  country_id: CN
+                - country_name: Germany
+                  region_id: 1
+                  country_id: DE
+                - country_name: Denmark
+                  region_id: 1
+                  country_id: DK
+                - country_name: Egypt
+                  region_id: 4
+                  country_id: EG
+                - country_name: France
+                  region_id: 1
+                  country_id: FR
+                - country_name: HongKong
+                  region_id: 3
+                  country_id: HK
+                - country_name: Israel
+                  region_id: 4
+                  country_id: IL
+                - country_name: India
+                  region_id: 3
+                  country_id: IN
+                - country_name: Italy
+                  region_id: 1
+                  country_id: IT
+                - country_name: Japan
+                  region_id: 3
+                  country_id: JP
+                - country_name: Kuwait
+                  region_id: 4
+                  country_id: KW
+                - country_name: Mexico
+                  region_id: 2
+                  country_id: MX
+                - country_name: Nigeria
+                  region_id: 4
+                  country_id: NG
+                - country_name: Netherlands
+                  region_id: 1
+                  country_id: NL
+                - country_name: Singapore
+                  region_id: 3
+                  country_id: SG
+                - country_name: United Kingdom
+                  region_id: 1
+                  country_id: UK
+                - country_name: United States of America
+                  region_id: 2
+                  country_id: US
+                - country_name: Zambia
+                  region_id: 4
+                  country_id: ZM
+                - country_name: Zimbabwe
+                  region_id: 4
+                  country_id: ZW
+  /database/departments/all:
+    get:
+      tags:
+        - database > others
+      summary: departments
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Mon, 11 Dec 2023 13:42:37 +0800
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '227'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - department_id: 1
+                  department_name: Administration
+                  location_id: 1700
+                - department_id: 2
+                  department_name: Marketing
+                  location_id: 1800
+                - department_id: 3
+                  department_name: Purchasing
+                  location_id: 1700
+                - department_id: 4
+                  department_name: Human Resources
+                  location_id: 2400
+                - department_id: 5
+                  department_name: Shipping
+                  location_id: 1500
+                - department_id: 6
+                  department_name: IT
+                  location_id: 1400
+                - department_id: 7
+                  department_name: Public Relations
+                  location_id: 2700
+                - department_id: 8
+                  department_name: Sales
+                  location_id: 2500
+                - department_id: 9
+                  department_name: Executive
+                  location_id: 1700
+                - department_id: 10
+                  department_name: Finance
+                  location_id: 1700
+                - department_id: 11
+                  department_name: Accounting
+                  location_id: 1700
+  /database/dependents/all:
+    get:
+      tags:
+        - database > others
+      summary: dependents
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Mon, 11 Dec 2023 13:42:46 +0800
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '618'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - dependent_id: 1
+                  employee_id: 206
+                  last_name: Gietz
+                  relationship: Child
+                  first_name: Penelope
+                - dependent_id: 2
+                  employee_id: 205
+                  last_name: Higgins
+                  relationship: Child
+                  first_name: Nick
+                - dependent_id: 3
+                  employee_id: 200
+                  last_name: Whalen
+                  relationship: Child
+                  first_name: Ed
+                - dependent_id: 4
+                  employee_id: 100
+                  last_name: King
+                  relationship: Child
+                  first_name: Jennifer
+                - dependent_id: 5
+                  employee_id: 101
+                  last_name: Kochhar
+                  relationship: Child
+                  first_name: Johnny
+                - dependent_id: 6
+                  employee_id: 102
+                  last_name: De Haan
+                  relationship: Child
+                  first_name: Bette
+                - dependent_id: 7
+                  employee_id: 109
+                  last_name: Faviet
+                  relationship: Child
+                  first_name: Grace
+                - dependent_id: 8
+                  employee_id: 110
+                  last_name: Chen
+                  relationship: Child
+                  first_name: Matthew
+                - dependent_id: 9
+                  employee_id: 111
+                  last_name: Sciarra
+                  relationship: Child
+                  first_name: Joe
+                - dependent_id: 10
+                  employee_id: 112
+                  last_name: Urman
+                  relationship: Child
+                  first_name: Christian
+                - dependent_id: 11
+                  employee_id: 113
+                  last_name: Popp
+                  relationship: Child
+                  first_name: Zero
+                - dependent_id: 12
+                  employee_id: 108
+                  last_name: Greenberg
+                  relationship: Child
+                  first_name: Karl
+                - dependent_id: 13
+                  employee_id: 203
+                  last_name: Mavris
+                  relationship: Child
+                  first_name: Uma
+                - dependent_id: 14
+                  employee_id: 103
+                  last_name: Hunold
+                  relationship: Child
+                  first_name: Vivien
+                - dependent_id: 15
+                  employee_id: 104
+                  last_name: Ernst
+                  relationship: Child
+                  first_name: Cuba
+                - dependent_id: 16
+                  employee_id: 105
+                  last_name: Austin
+                  relationship: Child
+                  first_name: Fred
+                - dependent_id: 17
+                  employee_id: 106
+                  last_name: Pataballa
+                  relationship: Child
+                  first_name: Helen
+                - dependent_id: 18
+                  employee_id: 107
+                  last_name: Lorentz
+                  relationship: Child
+                  first_name: Dan
+                - dependent_id: 19
+                  employee_id: 201
+                  last_name: Hartstein
+                  relationship: Child
+                  first_name: Bob
+                - dependent_id: 20
+                  employee_id: 202
+                  last_name: Fay
+                  relationship: Child
+                  first_name: Lucille
+                - dependent_id: 21
+                  employee_id: 204
+                  last_name: Baer
+                  relationship: Child
+                  first_name: Kirsten
+                - dependent_id: 22
+                  employee_id: 115
+                  last_name: Khoo
+                  relationship: Child
+                  first_name: Elvis
+                - dependent_id: 23
+                  employee_id: 116
+                  last_name: Baida
+                  relationship: Child
+                  first_name: Sandra
+                - dependent_id: 24
+                  employee_id: 117
+                  last_name: Tobias
+                  relationship: Child
+                  first_name: Cameron
+                - dependent_id: 25
+                  employee_id: 118
+                  last_name: Himuro
+                  relationship: Child
+                  first_name: Kevin
+                - dependent_id: 26
+                  employee_id: 119
+                  last_name: Colmenares
+                  relationship: Child
+                  first_name: Rip
+                - dependent_id: 27
+                  employee_id: 114
+                  last_name: Raphaely
+                  relationship: Child
+                  first_name: Julia
+                - dependent_id: 28
+                  employee_id: 145
+                  last_name: Russell
+                  relationship: Child
+                  first_name: Woody
+                - dependent_id: 29
+                  employee_id: 146
+                  last_name: Partners
+                  relationship: Child
+                  first_name: Alec
+                - dependent_id: 30
+                  employee_id: 176
+                  last_name: Taylor
+                  relationship: Child
+                  first_name: Sandra
+  /database/jobs/all:
+    get:
+      tags:
+        - database > others
+      summary: jobs
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Mon, 11 Dec 2023 13:42:59 +0800
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '392'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - max_salary: 9000
+                  job_id: 1
+                  min_salary: 4200
+                  job_title: Public Accountant
+                - max_salary: 16000
+                  job_id: 2
+                  min_salary: 8200
+                  job_title: Accounting Manager
+                - max_salary: 6000
+                  job_id: 3
+                  min_salary: 3000
+                  job_title: Administration Assistant
+                - max_salary: 40000
+                  job_id: 4
+                  min_salary: 20000
+                  job_title: President
+                - max_salary: 30000
+                  job_id: 5
+                  min_salary: 15000
+                  job_title: Administration Vice President
+                - max_salary: 9000
+                  job_id: 6
+                  min_salary: 4200
+                  job_title: Accountant
+                - max_salary: 16000
+                  job_id: 7
+                  min_salary: 8200
+                  job_title: Finance Manager
+                - max_salary: 9000
+                  job_id: 8
+                  min_salary: 4000
+                  job_title: Human Resources Representative
+                - max_salary: 10000
+                  job_id: 9
+                  min_salary: 4000
+                  job_title: Programmer
+                - max_salary: 15000
+                  job_id: 10
+                  min_salary: 9000
+                  job_title: Marketing Manager
+                - max_salary: 9000
+                  job_id: 11
+                  min_salary: 4000
+                  job_title: Marketing Representative
+                - max_salary: 10500
+                  job_id: 12
+                  min_salary: 4500
+                  job_title: Public Relations Representative
+                - max_salary: 5500
+                  job_id: 13
+                  min_salary: 2500
+                  job_title: Purchasing Clerk
+                - max_salary: 15000
+                  job_id: 14
+                  min_salary: 8000
+                  job_title: Purchasing Manager
+                - max_salary: 20000
+                  job_id: 15
+                  min_salary: 10000
+                  job_title: Sales Manager
+                - max_salary: 12000
+                  job_id: 16
+                  min_salary: 6000
+                  job_title: Sales Representative
+                - max_salary: 5500
+                  job_id: 17
+                  min_salary: 2500
+                  job_title: Shipping Clerk
+                - max_salary: 5000
+                  job_id: 18
+                  min_salary: 2000
+                  job_title: Stock Clerk
+                - max_salary: 8500
+                  job_id: 19
+                  min_salary: 5500
+                  job_title: Stock Manager
+  /database/locations/all:
+    get:
+      tags:
+        - database > others
+      summary: locations
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Mon, 11 Dec 2023 13:43:07 +0800
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '399'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - street_address: 2014 Jabberwocky Rd
+                  city: Southlake
+                  state_province: Texas
+                  postal_code: '26192'
+                  location_id: 1400
+                  country_id: US
+                - street_address: 2011 Interiors Blvd
+                  city: South San Francisco
+                  state_province: California
+                  postal_code: '99236'
+                  location_id: 1500
+                  country_id: US
+                - street_address: 2004 Charade Rd
+                  city: Seattle
+                  state_province: Washington
+                  postal_code: '98199'
+                  location_id: 1700
+                  country_id: US
+                - street_address: 147 Spadina Ave
+                  city: Toronto
+                  state_province: Ontario
+                  postal_code: M5V 2L7
+                  location_id: 1800
+                  country_id: CA
+                - street_address: 8204 Arthur St
+                  city: London
+                  state_province: ''
+                  postal_code: ''
+                  location_id: 2400
+                  country_id: UK
+                - street_address: Magdalen Centre, The Oxford Science Park
+                  city: Oxford
+                  state_province: Oxford
+                  postal_code: OX9 9ZB
+                  location_id: 2500
+                  country_id: UK
+                - street_address: Schwanthalerstr. 7031
+                  city: Munich
+                  state_province: Bavaria
+                  postal_code: '80925'
+                  location_id: 2700
+                  country_id: DE
+  /database/regions/all:
+    get:
+      tags:
+        - database > others
+      summary: regions
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Mon, 11 Dec 2023 13:43:22 +0800
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '112'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - region_id: 1
+                  region_name: Europe
+                - region_id: 2
+                  region_name: Americas
+                - region_id: 3
+                  region_name: Asia
+                - region_id: 4
+                  region_name: Middle East and Africa
+  /status/database/mysql:
+    get:
+      tags:
+        - status
+      summary: database
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Sun, 10 Dec 2023 12:59:28 +0800
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '117'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: Success
+                message: Test connection successful!
+                timestamp: '2023-12-10T04:58:38.554652Z'
+  /status/endpoint/GeoAPI:
+    get:
+      tags:
+        - status
+      summary: api
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Sun, 10 Dec 2023 12:59:10 +0800
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '117'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: Success
+                message: Test connection successful!
+                timestamp: '2023-12-10T04:58:38.554652Z'
+  /geo/coordinate:
+    get:
+      tags:
+        - geolocation
+      summary: coordinate
+      parameters:
+        - name: lat
+          in: query
+          schema:
+            type: number
+          example: '51.21709661403662'
+        - name: lon
+          in: query
+          schema:
+            type: number
+          example: '6.7782883744862374'
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+          example: '10'
+        - name: pageNumber
+          in: query
+          schema:
+            type: integer
+          example: '1'
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Tue, 12 Dec 2023 15:54:34 GMT
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '723'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                results:
+                  - datasource:
+                      sourcename: openstreetmap
+                      attribution: © OpenStreetMap contributors
+                      license: Open Database License
+                      url: https://www.openstreetmap.org/copyright
+                    name: Parkhaus Kö Talstraße
+                    country: Germany
+                    country_code: de
+                    state: North Rhine-Westphalia
+                    city: Dusseldorf
+                    postcode: '40217'
+                    district: Stadtbezirk 3
+                    suburb: Friedrichstadt
+                    street: Talstraße
+                    housenumber: '1'
+                    lon: 6.778318997521949
+                    lat: 51.21710155
+                    distance: 0
+                    result_type: amenity
+                    formatted: >-
+                      Parkhaus Kö Talstraße, Talstraße 1, 40217 Dusseldorf,
+                      Germany
+                    address_line1: Parkhaus Kö Talstraße
+                    address_line2: Talstraße 1, 40217 Dusseldorf, Germany
+                    category: parking.cars
+                    timezone:
+                      name: Europe/Berlin
+                      offset_STD: '+01:00'
+                      offset_STD_seconds: 3600
+                      offset_DST: '+02:00'
+                      offset_DST_seconds: 7200
+                      abbreviation_STD: CET
+                      abbreviation_DST: CEST
+                    plus_code: 9F386Q8H+R8
+                    rank:
+                      importance: 0.00000999999999995449
+                      popularity: 8.995467104553104
+                    place_id: >-
+                      515fd9c0a7ff1c1b40599994ccfbc99b4940f00102f9010877d00800000000c002019203175061726b68617573204bc3b62054616c73747261c39f65
+                    bbox:
+                      lon1: 6.7778088
+                      lat1: 51.2169076
+                      lon2: 6.7786914
+                      lat2: 51.2173398
+                query:
+                  lat: 51.21709661403662
+                  lon: 6.7782883744862374
+                  plus_code: 9F386Q8H+R8
+  /geo/search:
+    get:
+      tags:
+        - geolocation
+      summary: search
+      parameters:
+        - name: key
+          in: query
+          schema:
+            type: string
+          example: Kulim
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+          example: '10'
+        - name: pageNumber
+          in: query
+          schema:
+            type: integer
+          example: '1'
+      responses:
+        '200':
+          description: OK
+          headers:
+            content-type:
+              schema:
+                type: string
+                example: application/json
+            server:
+              schema:
+                type: string
+                example: ballerina
+            date:
+              schema:
+                type: string
+                example: Tue, 12 Dec 2023 15:53:50 GMT
+            content-encoding:
+              schema:
+                type: string
+                example: gzip
+            content-length:
+              schema:
+                type: integer
+                example: '1470'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                results:
+                  - datasource:
+                      sourcename: openstreetmap
+                      attribution: © OpenStreetMap contributors
+                      license: Open Database License
+                      url: https://www.openstreetmap.org/copyright
+                    name: Kulim
+                    country: Malaysia
+                    country_code: my
+                    state: Kedah
+                    city: Kulim
+                    postcode: '09000'
+                    district: Kulim
+                    lon: 100.5525705
+                    lat: 5.3663769
+                    formatted: Kulim, Kedah, Malaysia
+                    address_line1: Kulim
+                    address_line2: Kulim, Kedah, Malaysia
+                    category: populated_place
+                    timezone:
+                      name: Asia/Kuala_Lumpur
+                      name_alt: Asia/Singapore
+                      offset_STD: '+08:00'
+                      offset_STD_seconds: 28800
+                      offset_DST: '+08:00'
+                      offset_DST_seconds: 28800
+                    plus_code: 6PQ29H83+H2
+                    plus_code_short: 83+H2 Kulim, Kedah, Malaysia
+                    result_type: district
+                    rank:
+                      importance: 0.5888683861101411
+                      popularity: 1.2062454469551849
+                      confidence: 1
+                      confidence_city_level: 1
+                      match_type: full_match
+                    place_id: >-
+                      51008fa8505d23594059190a8e812b771540f00103f901ba39ab2600000000c002069203054b756c696d
+                    bbox:
+                      lon1: 100.3925705
+                      lat1: 5.2063769
+                      lon2: 100.7125705
+                      lat2: 5.5263769
+                  - datasource:
+                      sourcename: openstreetmap
+                      attribution: © OpenStreetMap contributors
+                      license: Open Database License
+                      url: https://www.openstreetmap.org/copyright
+                    name: Kulim
+                    country: Indonesia
+                    country_code: id
+                    region: Sumatra
+                    state: Riau
+                    county: Kampar Regency
+                    city: Kulim
+                    village: Kulim
+                    lon: 101.5706665
+                    lat: 0.441126
+                    formatted: Kulim, Kampar Regency, Indonesia
+                    address_line1: Kulim
+                    address_line2: Kampar Regency, Indonesia
+                    category: populated_place
+                    timezone:
+                      name: Asia/Jakarta
+                      offset_STD: '+07:00'
+                      offset_STD_seconds: 25200
+                      offset_DST: '+07:00'
+                      offset_DST_seconds: 25200
+                      abbreviation_STD: WIB
+                      abbreviation_DST: WIB
+                    plus_code: 6PG3CHRC+F7
+                    result_type: city
+                    rank:
+                      importance: 0.37500999999999995
+                      popularity: 0.8867975611397146
+                      confidence: 1
+                      confidence_city_level: 1
+                      match_type: full_match
+                    place_id: >-
+                      510f9bc8cc85645940593694da8b683bdc3ff00103f90158cbfa4d00000000c002089203054b756c696d
+                    bbox:
+                      lon1: 101.5506665
+                      lat1: 0.421126
+                      lon2: 101.5906665
+                      lat2: 0.461126
+                  - datasource:
+                      sourcename: openstreetmap
+                      attribution: © OpenStreetMap contributors
+                      license: Open Database License
+                      url: https://www.openstreetmap.org/copyright
+                    name: Kulim (Malaysia) Berhad Ladang REM
+                    country: Malaysia
+                    country_code: my
+                    state: Johor
+                    city: Kulim (Malaysia) Berhad Ladang REM
+                    district: Kota Tinggi
+                    hamlet: Kulim (Malaysia) Berhad Ladang REM
+                    lon: 103.8838239
+                    lat: 1.7033396
+                    formatted: >-
+                      Kota Tinggi, Kulim (Malaysia) Berhad Ladang REM, Johor,
+                      Malaysia
+                    address_line1: Kota Tinggi
+                    address_line2: Kulim (Malaysia) Berhad Ladang REM, Johor, Malaysia
+                    category: populated_place
+                    timezone:
+                      name: Asia/Kuala_Lumpur
+                      name_alt: Asia/Singapore
+                      offset_STD: '+08:00'
+                      offset_STD_seconds: 28800
+                      offset_DST: '+08:00'
+                      offset_DST_seconds: 28800
+                    plus_code: 6PH5PV3M+8G
+                    result_type: suburb
+                    rank:
+                      importance: 0.35000999999999993
+                      popularity: 1.8858659875926385
+                      confidence: 1
+                      confidence_city_level: 1
+                      match_type: full_match
+                    place_id: >-
+                      51157b1e9290f859405922b53f06e140fb3ff00103f90124747c7d02000000c002059203224b756c696d20284d616c61797369612920426572686164204c6164616e672052454d
+                    bbox:
+                      lon1: 103.8638239
+                      lat1: 1.6833396
+                      lon2: 103.9038239
+                      lat2: 1.7233396
+                  - datasource:
+                      sourcename: openstreetmap
+                      attribution: © OpenStreetMap contributors
+                      license: Open Database License
+                      url: https://www.openstreetmap.org/copyright
+                    name: Мошъюга
+                    country: Russia
+                    country_code: ru
+                    region: Northwestern Federal District
+                    state: Komi Republic
+                    county: Izhemsky District
+                    city: Мошъюга
+                    municipality: сельское поселение Мохча
+                    village: Мошъюга
+                    lon: 53.750358
+                    lat: 64.8564597
+                    formatted: Мошъюга, Izhemsky District, Russia
+                    address_line1: Мошъюга
+                    address_line2: Izhemsky District, Russia
+                    category: populated_place
+                    timezone:
+                      name: Europe/Moscow
+                      offset_STD: '+03:00'
+                      offset_STD_seconds: 10800
+                      offset_DST: '+03:00'
+                      offset_DST_seconds: 10800
+                      abbreviation_STD: MSK
+                      abbreviation_DST: MSK
+                    plus_code: 9HPMVQ42+H4
+                    result_type: city
+                    rank:
+                      importance: 0.27501
+                      popularity: 0.44868481920401015
+                      confidence: 1
+                      confidence_city_level: 1
+                      match_type: full_match
+                    place_id: >-
+                      515f251fbb0be04a4059e375583cd0365040f00102f9013940db1900000000c0020892030ed09cd0bed188d18ad18ed0b3d0b0
+                    bbox:
+                      lon1: 53.7350909
+                      lat1: 64.8462284
+                      lon2: 53.7639729
+                      lat2: 64.8694758
+                query:
+                  text: Kulim
+                  parsed:
+                    city: kulim
+                    expected_type: unknown

@@ -1,0 +1,20 @@
+[restfull_sample_api.database]
+USER = "ballerina"
+PASSWORD = "ballerina"
+HOST = "30.5.0.5"
+PORT = 3306
+DATABASE = "BALLERINA_DB"
+CONNECTION_POOL = 5
+
+[restfull_sample_api.listener]
+CERT_FILE = "./modules/listener/resources/keys/serverpubliccert.crt"
+KEY_FILE = "./modules/listener/resources/keys/serverpvtkey.key"
+HTTP_PORT = 7777
+HTTPS_PORT = 7778
+
+[restfull_sample_api.endpoint]
+GEO_API_URL = "https://api.geoapify.com/v1/geocode"
+GEO_API_KEY = "43cbd49db75f47119044748d0afeb15b"
+GEO_URI_REVERSE = "/reverse?"
+GEO_URI_SEARCH = "/search?"
+API_FORMAT = "json"

@@ -1,0 +1,51 @@
+openapi: 3.0.0
+info:
+  title: RESTApi
+  description: API Definition of RESTApi
+  version: 1.0.0
+servers:
+- url: /apih/apit/apit/apip/api:/api//api//apil/apio/apic/apia/apil/apih/apio/apis/apit/api:/api7/api7/api7/api7/api
+tags:
+- name: database
+- name: database > employee
+- name: database > others
+- name: status
+- name: geolocation
+paths:
+  /unittest:
+    get:
+      responses:
+        default:
+          description: Default response
+    put:
+      requestBody:
+        description: Sample Payload
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+        required: false
+      responses:
+        default:
+          description: Default response
+    post:
+      requestBody:
+        description: Sample Payload
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+        required: false
+      responses:
+        default:
+          description: Default response
+    delete:
+      responses:
+        default:
+          description: Default response
