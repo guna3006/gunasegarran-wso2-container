@@ -1,0 +1,1 @@
+newman run ../postman/restfull-sample-api.postman_collection.json -r cli,json,junit,progress,emojitrain
